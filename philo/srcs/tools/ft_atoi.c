@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 10:38:29 by lburnet           #+#    #+#             */
-/*   Updated: 2021/11/09 11:40:35 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/11/09 13:25:01 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,17 +17,17 @@ int	can_atoi(const char *str)
 	int	i;
 
 	if (!(str[0] == '-' || ft_isdigit(str[0])))
-		return (0);
+		return (1);
 	if (str[0] == '-' && ft_strlen(str) == 1)
 		return (0);
 	i = 1;
 	while (str && str[i])
 	{
 		if (!ft_isdigit(str[i]))
-			return (0);
+			return (1);
 		i++;
 	}
-	return (1);
+	return (0);
 }
 
 int	ft_atoi(const char *str)
@@ -36,6 +36,7 @@ int	ft_atoi(const char *str)
 	int			sign;
 	long int	atoi;
 
+	// printf("str = %s\n", str);//
 	i = 0;
 	if (str[i] == 0)
 		return (0);
@@ -51,6 +52,6 @@ int	ft_atoi(const char *str)
 		i++;
 	}
 	atoi *= sign;
-	printf("test\n");//
-	return (atoi);
+	// printf("atoi = %ld\n", atoi);//
+	return ((int)atoi);
 }

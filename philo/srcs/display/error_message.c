@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 10:17:16 by lburnet           #+#    #+#             */
-/*   Updated: 2021/11/09 10:43:57 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/11/09 13:07:32 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,8 @@ void	error_message(int err)
 	}
 	if (err == ERROR_MALLOC)
 		printf("Malloc failed\n");
+	if (err == NOT_AN_INT)
+		printf("argument is not an int\n");
+	if (err == NOT_POS)
+		printf("argument is inferior or equal to zero\n");
 }
