@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 09:51:25 by lburnet           #+#    #+#             */
-/*   Updated: 2021/11/09 10:45:37 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/11/09 11:04:26 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,10 +36,13 @@ enum e_error
 	NO_ERROR,
 	WRONG_NB_ARG,
 	ERROR_MALLOC,
+	NOT_AN_INT,
+	NOT_POS,
 };
 
 //fct in display
 void	error_message(int err);
+void	print_philos(t_p *p);
 
 //fct in parsing
 int		ft_parsing(int ac, char *av[], t_p *p);
