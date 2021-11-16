@@ -6,7 +6,7 @@
 /*   By: lucille <lucille@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 15:07:02 by lucille           #+#    #+#             */
-/*   Updated: 2021/11/16 15:09:50 by lucille          ###   ########.fr       */
+/*   Updated: 2021/11/16 16:29:16 by lucille          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ int	ft_exit(t_suitcase *sc, int err)
 			pthread_mutex_destroy(&sc->forks_m[i++]);
 		free (sc->forks_m);
 	}
-	pthread_mutex_destroy(&sc->write_m);
+	pthread_mutex_destroy(&sc->game_paused);
 	pthread_mutex_destroy(&sc->isdead);
 	if (sc != NULL)
 		free(sc);

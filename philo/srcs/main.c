@@ -6,7 +6,7 @@
 /*   By: lucille <lucille@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 09:51:15 by lburnet           #+#    #+#             */
-/*   Updated: 2021/11/16 15:09:58 by lucille          ###   ########.fr       */
+/*   Updated: 2021/11/16 16:29:26 by lucille          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@ static int	init_suitcase0(t_suitcase **sc)
 	(*sc)->t_to_sleep = -1;
 	(*sc)->forks_m = NULL;
 	(*sc)->philos = NULL;
+	(*sc)->gameover = 0;
 	return (NO_ERROR);
 }
 
@@ -40,7 +41,7 @@ static int	init_suitcase1(t_suitcase *sc)
 		pthread_mutex_init(&sc->forks_m[i], NULL);
 		i++;
 	}
-	pthread_mutex_init(&sc->write_m, NULL);
+	pthread_mutex_init(&sc->game_paused, NULL);
 	pthread_mutex_init(&sc->isdead, NULL);
 	pthread_mutex_lock(&sc->isdead);//pourquoi ?
 	return (NO_ERROR);
@@ -57,7 +58,7 @@ static int	init_philos(t_suitcase *sc)
 	i = 0;
 	while (i < sc->nb_philo)
 	{
-		sc->philos[i].who = i;
+		sc->philos[i].who = i + 1;
 		sc->philos[i].iseating = 0;
 		sc->philos[i].lfork = i;
 		sc->philos[i].rfork = (i + 1) % sc->nb_philo;
