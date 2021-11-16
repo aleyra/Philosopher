@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing0.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: lucille <lucille@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 10:25:03 by lburnet           #+#    #+#             */
-/*   Updated: 2021/11/09 13:30:08 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/11/16 14:28:07 by lucille          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static int	assign_int(int *to_be_assign, char *str)
 	return (NO_ERROR);
 }
 
-int	ft_parsing(int ac, char *av[], t_p *p)
+int	ft_parsing(int ac, char *av[], t_suitcase *sc)
 {
 	int	i;
 
@@ -29,15 +29,15 @@ int	ft_parsing(int ac, char *av[], t_p *p)
 	{
 		if (can_atoi(av[i]) == 1)
 			return (NOT_AN_INT);
-		if (i == 1 && assign_int(&p->nb_philo, av[i]) != NO_ERROR)
+		if (i == 1 && assign_int(&sc->nb_philo, av[i]) != NO_ERROR)
 			return (NOT_POS);
-		else if (i == 2 && assign_int(&p->t_to_die, av[i]) != NO_ERROR)
+		else if (i == 2 && assign_int(&sc->t_to_die, av[i]) != NO_ERROR)
 			return (NOT_POS);
-		else if (i == 3 && assign_int(&p->t_to_eat, av[i]) != NO_ERROR)
+		else if (i == 3 && assign_int(&sc->t_to_eat, av[i]) != NO_ERROR)
 			return (NOT_POS);
-		else if (i == 4 && assign_int(&p->t_to_sleep, av[i]) != NO_ERROR)
+		else if (i == 4 && assign_int(&sc->t_to_sleep, av[i]) != NO_ERROR)
 			return (NOT_POS);
-		else if (i == 5 && assign_int(&p->nb_meal, av[i]) != NO_ERROR)
+		else if (i == 5 && assign_int(&sc->nb_meal, av[i]) != NO_ERROR)
 			return (NOT_POS);
 		i++;
 	}
