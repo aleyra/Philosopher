@@ -6,7 +6,7 @@
 /*   By: lucille <lucille@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 09:51:15 by lburnet           #+#    #+#             */
-/*   Updated: 2021/11/19 15:14:00 by lucille          ###   ########.fr       */
+/*   Updated: 2021/11/19 15:30:52 by lucille          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ static int	init_suitcase0(t_suitcase **sc)
 	(*sc)->t_to_die = -1;
 	(*sc)->t_to_eat = -1;
 	(*sc)->t_to_sleep = -1;
-	(*sc)->forks_m = NULL;
+	(*sc)->forks = NULL;
 	(*sc)->philos = NULL;
 	(*sc)->gameover = 0;
 	return (NO_ERROR);
@@ -32,13 +32,13 @@ static int	init_suitcase1(t_suitcase *sc)
 {
 	int	i;
 
-	sc->forks_m = malloc(sc->nb_philo * sizeof(pthread_mutex_t));
-	if (sc->forks_m == NULL)
+	sc->forks = malloc(sc->nb_philo * sizeof(pthread_mutex_t));
+	if (sc->forks == NULL)
 		return (ERROR_MALLOC);
 	i = 0;
 	while (i < sc->nb_philo)
 	{
-		pthread_mutex_init(&sc->forks_m[i], NULL);
+		pthread_mutex_init(&sc->forks[i], NULL);
 		i++;
 	}
 	pthread_mutex_init(&sc->game_paused, NULL);
@@ -65,8 +65,8 @@ static int	init_philos(t_suitcase *sc)
 		sc->philos[i].meal = 0;
 		sc->philos[i].sc = sc;
 		pthread_mutex_init(&sc->philos[i].mutex, NULL);
-		pthread_mutex_init(&sc->philos[i].eat_m, NULL);
-		pthread_mutex_lock(&sc->philos[i].eat_m);
+		pthread_mutex_init(&sc->philos[i].a_table, NULL);
+		pthread_mutex_lock(&sc->philos[i].a_table);
 		i++;
 	}
 	err = init_suitcase1(sc);

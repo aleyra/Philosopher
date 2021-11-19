@@ -6,7 +6,7 @@
 /*   By: lucille <lucille@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 14:00:35 by lucille           #+#    #+#             */
-/*   Updated: 2021/11/19 15:15:21 by lucille          ###   ########.fr       */
+/*   Updated: 2021/11/19 16:03:03 by lucille          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	*count_meal(void *void_sc)
 		i = 0;
 		while (i < sc->nb_philo)
 		{
-			pthread_mutex_lock(&sc->philos[i].eat_m);
+			pthread_mutex_lock(&sc->philos[i].a_table);
 			i++;
 		}
 	}
@@ -71,7 +71,7 @@ static void	*routine(void *void_philo)
 		take_forks(philo);
 		eat(philo);
 		give_forks(philo);
-		what_message(philo, IS_THINKING);
+		sleep_then_think(philo);
 	}
 	return (NULL);
 }

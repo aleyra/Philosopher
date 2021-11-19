@@ -6,7 +6,7 @@
 /*   By: lucille <lucille@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 09:51:25 by lburnet           #+#    #+#             */
-/*   Updated: 2021/11/19 15:18:17 by lucille          ###   ########.fr       */
+/*   Updated: 2021/11/19 15:46:05 by lucille          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ struct s_philo
 	int					meal;
 	t_suitcase			*sc;
 	pthread_mutex_t		mutex;
-	pthread_mutex_t		eat_m;
+	pthread_mutex_t		a_table;
 };
 
 struct s_suitcase
@@ -49,7 +49,7 @@ struct s_suitcase
 	unsigned long long	start;
 	struct timeval		tv;
 	t_philo				*philos;
-	pthread_mutex_t		*forks_m;
+	pthread_mutex_t		*forks;
 	pthread_mutex_t		game_paused;
 	pthread_mutex_t		isdead;
 	int					gameover;
@@ -84,6 +84,7 @@ void				what_message(t_philo *philo, int what);
 void				take_forks(t_philo *philo);
 void				eat(t_philo *philo);
 void				give_forks(t_philo *philo);
+void				sleep_then_think(t_philo *philo);
 int					start_meeting(t_suitcase *sc);
 
 //fct in parsing
