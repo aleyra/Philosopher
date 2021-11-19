@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   screen_message.c                                   :+:      :+:    :+:   */
+/*   what_message.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lucille <lucille@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:19:35 by lucille           #+#    #+#             */
-/*   Updated: 2021/11/16 16:48:42 by lucille          ###   ########.fr       */
+/*   Updated: 2021/11/19 14:41:43 by lucille          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	screen_message(t_philo *philo, int what)
+void	what_message(t_philo *philo, int what)
 {
 	t_suitcase	*sc;
 

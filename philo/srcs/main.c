@@ -6,7 +6,7 @@
 /*   By: lucille <lucille@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 09:51:15 by lburnet           #+#    #+#             */
-/*   Updated: 2021/11/16 16:29:26 by lucille          ###   ########.fr       */
+/*   Updated: 2021/11/19 15:14:00 by lucille          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int	init_suitcase1(t_suitcase *sc)
 	}
 	pthread_mutex_init(&sc->game_paused, NULL);
 	pthread_mutex_init(&sc->isdead, NULL);
-	pthread_mutex_lock(&sc->isdead);//pourquoi ?
+	pthread_mutex_lock(&sc->isdead);
 	return (NO_ERROR);
 }
 
@@ -66,7 +66,7 @@ static int	init_philos(t_suitcase *sc)
 		sc->philos[i].sc = sc;
 		pthread_mutex_init(&sc->philos[i].mutex, NULL);
 		pthread_mutex_init(&sc->philos[i].eat_m, NULL);
-		pthread_mutex_lock(&sc->philos[i].eat_m);//pourquoi ?
+		pthread_mutex_lock(&sc->philos[i].eat_m);
 		i++;
 	}
 	err = init_suitcase1(sc);
@@ -78,7 +78,7 @@ static int	init_philos(t_suitcase *sc)
 int	main(int ac, char *av[])
 {
 	t_suitcase	*sc;
-	int	err;
+	int			err;
 
 	sc = NULL;
 	err = NO_ERROR;
@@ -90,6 +90,9 @@ int	main(int ac, char *av[])
 	if (err != NO_ERROR)
 		return (ft_exit(sc, err));
 	err = init_philos(sc);
+	if (err != NO_ERROR)
+		return (ft_exit(sc, err));
+	err = start_meeting(sc);
 	if (err != NO_ERROR)
 		return (ft_exit(sc, err));
 	return (ft_exit(sc, NO_ERROR));

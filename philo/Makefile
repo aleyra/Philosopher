@@ -14,10 +14,12 @@ PATH_LOG	=	philo/logs
 #override LIBFT		:= libft.a
 
 # List of sources
-SRCS_DISP	=	error_message.c print0.c screen_message.c
+SRCS_DISP	=	error_message.c print0.c what_message.c
+SRCS_MANA_T	= 	actions.c routines.c
 SRCS_PARS	=	parsing0.c
 SRCS_TOOLS	=	ft_atoi.c ft_exit.c ft_gettime.c ft_isdigit.c ft_strlen.c
 SRCS		=	$(addprefix $(PATH_SRC)/display/, $(SRCS_DISP)) \
+				$(addprefix $(PATH_SRC)mana_thread/, $(SRCS_MANA_T)) \
 				$(addprefix $(PATH_SRC)/parsing/, $(SRCS_PARS)) \
 				$(addprefix $(PATH_SRC)/tools/, $(SRCS_TOOLS)) \
 				$(addprefix $(PATH_SRC)/, )  main.c #add files à la racine

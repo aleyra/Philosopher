@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_message.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: lucille <lucille@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 10:17:16 by lburnet           #+#    #+#             */
-/*   Updated: 2021/11/09 13:07:32 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/11/19 14:15:29 by lucille          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,6 @@ void	error_message(int err)
 		printf("argument is not an int\n");
 	if (err == NOT_POS)
 		printf("argument is inferior or equal to zero\n");
+	if (err == ERROR_PTHREAD_C)
+		printf("pthread_create failes\n");
 }

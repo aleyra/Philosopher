@@ -6,7 +6,7 @@
 /*   By: lucille <lucille@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 09:51:25 by lburnet           #+#    #+#             */
-/*   Updated: 2021/11/16 16:47:38 by lucille          ###   ########.fr       */
+/*   Updated: 2021/11/19 15:18:17 by lucille          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,12 +29,12 @@ struct s_philo
 {
 	int					who;
 	int					iseating;
-	unsigned long long	limit;//?
-	unsigned long long	last_eat;
+	unsigned long long	times_up;
+	unsigned long long	last_meal;
 	int					lfork;
 	int					rfork;
 	int					meal;
-	t_suitcase			*sc;//pour pouvoir revenir en arrière ?
+	t_suitcase			*sc;
 	pthread_mutex_t		mutex;
 	pthread_mutex_t		eat_m;
 };
@@ -62,6 +62,7 @@ enum e_error
 	ERROR_MALLOC,
 	NOT_AN_INT,
 	NOT_POS,
+	ERROR_PTHREAD_C,
 };
 
 enum e_what
@@ -77,7 +78,13 @@ enum e_what
 //fct in display
 void				error_message(int err);
 void				print_philos(t_suitcase *p);
-void				screen_message(t_philo *philo, int what);
+void				what_message(t_philo *philo, int what);
+
+//fct in mana_thread
+void				take_forks(t_philo *philo);
+void				eat(t_philo *philo);
+void				give_forks(t_philo *philo);
+int					start_meeting(t_suitcase *sc);
 
 //fct in parsing
 int					ft_parsing(int ac, char *av[], t_suitcase *p);
