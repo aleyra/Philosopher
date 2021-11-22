@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing0.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucille <lucille@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 10:25:03 by lburnet           #+#    #+#             */
-/*   Updated: 2021/11/16 14:28:07 by lucille          ###   ########.fr       */
+/*   Updated: 2021/11/22 10:41:22 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,8 @@ int	ft_parsing(int ac, char *av[], t_suitcase *sc)
 			return (NOT_POS);
 		i++;
 	}
+	if (sc->nb_philo > 200 || sc->t_to_die < 60 || sc->t_to_eat < 60
+		|| sc->t_to_sleep < 60)
+		return (FORBIDDEN);
 	return (NO_ERROR);
 }

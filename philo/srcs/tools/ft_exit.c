@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucille <lucille@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 15:07:02 by lucille           #+#    #+#             */
-/*   Updated: 2021/11/19 15:30:49 by lucille          ###   ########.fr       */
+/*   Updated: 2021/11/22 12:10:52 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,19 +22,17 @@ static void	free_destroy_philos(t_suitcase *sc)
 		while (i > sc->nb_philo)
 		{
 			pthread_mutex_destroy(&sc->philos[i].mutex);
-			pthread_mutex_destroy(&sc->philos[i].a_table);
 			i++;
 		}
 		free (sc->philos);
+		sc->philos = NULL;
 	}
 }
 
-int	ft_exit(t_suitcase *sc, int err)
+void	free_destroy_all(t_suitcase *sc)
 {
 	int	i;
 
-	if (err != NO_ERROR)
-		error_message(err);
 	free_destroy_philos(sc);
 	if (sc->forks != NULL)
 	{
@@ -42,9 +40,16 @@ int	ft_exit(t_suitcase *sc, int err)
 		while (i < sc->nb_philo)
 			pthread_mutex_destroy(&sc->forks[i++]);
 		free (sc->forks);
+		sc->forks = NULL;
 	}
 	pthread_mutex_destroy(&sc->game_paused);
-	pthread_mutex_destroy(&sc->isdead);
+}
+
+int	ft_exit(t_suitcase *sc, int err)
+{
+	if (err != NO_ERROR)
+		error_message(err);
+	free_destroy_all(sc);
 	if (sc != NULL)
 		free(sc);
 	return (err);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucille <lucille@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 09:51:15 by lburnet           #+#    #+#             */
-/*   Updated: 2021/11/19 15:30:52 by lucille          ###   ########.fr       */
+/*   Updated: 2021/11/22 13:26:00 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ static int	init_suitcase0(t_suitcase **sc)
 	(*sc)->forks = NULL;
 	(*sc)->philos = NULL;
 	(*sc)->gameover = 0;
+	(*sc)->now = 0;
 	return (NO_ERROR);
 }
 
@@ -42,8 +43,7 @@ static int	init_suitcase1(t_suitcase *sc)
 		i++;
 	}
 	pthread_mutex_init(&sc->game_paused, NULL);
-	pthread_mutex_init(&sc->isdead, NULL);
-	pthread_mutex_lock(&sc->isdead);
+	sc->isdead = 0;
 	return (NO_ERROR);
 }
 
@@ -65,8 +65,6 @@ static int	init_philos(t_suitcase *sc)
 		sc->philos[i].meal = 0;
 		sc->philos[i].sc = sc;
 		pthread_mutex_init(&sc->philos[i].mutex, NULL);
-		pthread_mutex_init(&sc->philos[i].a_table, NULL);
-		pthread_mutex_lock(&sc->philos[i].a_table);
 		i++;
 	}
 	err = init_suitcase1(sc);
@@ -95,5 +93,6 @@ int	main(int ac, char *av[])
 	err = start_meeting(sc);
 	if (err != NO_ERROR)
 		return (ft_exit(sc, err));
+	check_finished(sc);
 	return (ft_exit(sc, NO_ERROR));
 }

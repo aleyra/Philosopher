@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   error_message.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucille <lucille@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 10:17:16 by lburnet           #+#    #+#             */
-/*   Updated: 2021/11/19 14:15:29 by lucille          ###   ########.fr       */
+/*   Updated: 2021/11/22 10:38:06 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,4 +28,6 @@ void	error_message(int err)
 		printf("argument is inferior or equal to zero\n");
 	if (err == ERROR_PTHREAD_C)
 		printf("pthread_create failes\n");
+	if (err == FORBIDDEN)
+		printf("Forbidden\n");
 }

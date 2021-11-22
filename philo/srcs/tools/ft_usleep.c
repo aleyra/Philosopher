@@ -1,19 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_gettime.c                                       :+:      :+:    :+:   */
+/*   ft_usleep.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/16 16:02:20 by lucille           #+#    #+#             */
-/*   Updated: 2021/11/22 13:35:38 by lburnet          ###   ########lyon.fr   */
+/*   Created: 2021/11/22 13:18:57 by lburnet           #+#    #+#             */
+/*   Updated: 2021/11/22 13:34:40 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-long	ft_gettime(t_suitcase *sc)
+void	ft_usleep(int time, t_suitcase *sc)
 {
-	gettimeofday(&sc->tv, NULL);
-	return ((sc->tv.tv_sec * 1000) + (sc->tv.tv_usec / 1000));
+	long	wait_time;
+
+	wait_time = sc->now + time;
+	while (sc->now < wait_time && sc->isdead == 1)
+	{
+		usleep(200);
+	}
 }
