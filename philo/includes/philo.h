@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 09:51:25 by lburnet           #+#    #+#             */
-/*   Updated: 2021/11/22 13:45:01 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/11/23 13:07:28 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ enum e_what
 void				error_message(int err);
 void				print_philos(t_suitcase *p);
 void				what_message(t_philo *philo, int what);
-void				print(t_philo *philo, char *str);
+void				print_message(t_philo *philo, char *str);
 
 //fct in mana_thread
 void				take_forks(t_philo *philo);
@@ -102,6 +102,7 @@ int					ft_exit(t_suitcase *sc, int err);
 long				ft_gettime(t_suitcase *sc);
 int					ft_isdigit(int c);
 void				ft_putnbr_fd(int n, int fd);
+void				ft_putstr_fd(char *s, int fd);
 int					ft_strlen(const char *str);
 void				ft_usleep(int time, t_suitcase *sc);
 #endif

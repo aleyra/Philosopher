@@ -1,29 +1,27 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   what_message.c                                     :+:      :+:    :+:   */
+/*   ft_putstr_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2021/11/16 16:19:35 by lucille           #+#    #+#             */
-/*   Updated: 2021/11/23 13:10:31 by lburnet          ###   ########lyon.fr   */
+/*   Created: 2020/11/26 10:40:38 by lburnet           #+#    #+#             */
+/*   Updated: 2021/11/23 13:05:42 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void	print_message(t_philo *philo, char *str)
+void	ft_putstr_fd(char *s, int fd)
 {
-	pthread_mutex_lock(&philo->sc->write);
-	if (philo->sc->isdead == 1)
-	{
-		pthread_mutex_unlock(&philo->sc->write);
+	int	i;
+
+	if (!s)
 		return ;
+	i = 0;
+	while (s[i] != 0)
+	{
+		write(fd, &s[i], 1);
+		i++;
 	}
-	ft_putnbr_fd(philo->sc->now - philo->sc->start, 1);
-	ft_putstr_fd(":\tphilo nb ", 1);
-	ft_putnbr_fd(philo->who, 1);
-	ft_putstr_fd(" ", 1);
-	ft_putstr_fd(str, 1);
-	pthread_mutex_unlock(&philo->sc->write);
 }

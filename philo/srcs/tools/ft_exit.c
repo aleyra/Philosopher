@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 15:07:02 by lucille           #+#    #+#             */
-/*   Updated: 2021/11/22 12:10:52 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/11/23 13:01:24 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ void	free_destroy_all(t_suitcase *sc)
 		sc->forks = NULL;
 	}
 	pthread_mutex_destroy(&sc->game_paused);
+	pthread_mutex_destroy(&sc->write);
 }
 
 int	ft_exit(t_suitcase *sc, int err)

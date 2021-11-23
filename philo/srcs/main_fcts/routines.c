@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 14:00:35 by lucille           #+#    #+#             */
-/*   Updated: 2021/11/22 13:45:35 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/11/23 13:08:42 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int	check_is_dead(t_suitcase *sc)
 		philo = &sc->philos[i];
 		if (philo->iseating == 0 && sc->now > philo->times_up)
 		{
-			print(philo, "died\n");
+			print_message(philo, "died\n");
 			sc->isdead = 1;
 			return (1);
 		}

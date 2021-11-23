@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 09:51:15 by lburnet           #+#    #+#             */
-/*   Updated: 2021/11/22 13:26:00 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/11/23 13:00:56 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ static int	init_suitcase1(t_suitcase *sc)
 		i++;
 	}
 	pthread_mutex_init(&sc->game_paused, NULL);
+	pthread_mutex_init(&sc->write, NULL);
 	sc->isdead = 0;
 	return (NO_ERROR);
 }

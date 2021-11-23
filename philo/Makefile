@@ -18,7 +18,7 @@ SRCS_DISP	=	error_message.c print0.c what_message.c
 SRCS_MANA_T	= 	actions.c routines.c
 SRCS_PARS	=	parsing0.c
 SRCS_TOOLS	=	ft_atoi.c ft_exit.c ft_gettime.c ft_isdigit.c ft_putnbr_fd.c \
-				ft_strlen.c ft_usleep.c
+				ft_putstr_fd.c ft_strlen.c ft_usleep.c
 SRCS		=	$(addprefix $(PATH_SRC)/display/, $(SRCS_DISP)) \
 				$(addprefix $(PATH_SRC)mana_thread/, $(SRCS_MANA_T)) \
 				$(addprefix $(PATH_SRC)/parsing/, $(SRCS_PARS)) \
