@@ -55,7 +55,7 @@ init:
 bonus :	all
 
 $(NAME): 	$(OBJS) $(LIBFT)
-			$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -lpthread
+			$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
 
 $(PATH_OBJ)/%.o : $(PATH_SRC)/*/%.c  $(INCS)
 	@ $(COMP) $(COMP_FLAG) $(COMP_ADD) -c $< -o $@

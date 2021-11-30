@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 15:06:47 by lucille           #+#    #+#             */
-/*   Updated: 2021/11/23 13:07:41 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/11/30 17:05:14 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,47 +14,35 @@
 
 void	take_forks(t_philo *philo)
 {
-	t_suitcase	*sc;
-
-	sc = philo->sc;
 	pthread_mutex_lock(&philo->sc->forks[philo->rfork]);
-	pthread_mutex_lock(&philo->sc->forks[philo->lfork]);
-	print_message(philo, "has taken forks\n");
+	print_message(philo, "has taken a fork\n");
+	// if (philo->rfork != philo->lfork)
+	// {
+		pthread_mutex_lock(&philo->sc->forks[philo->lfork]);
+		print_message(philo, "has taken a fork\n");
+	// }
 }
 
 void	eat(t_philo *philo)
 {
-	t_suitcase	*sc;
-
-	pthread_mutex_lock(&philo->mutex);
-	sc = philo->sc;
-	philo->iseating = 1;
+	pthread_mutex_lock(&philo->eat);
 	print_message(philo, "is eating\n");
-	philo->last_meal = sc->now;
-	philo->times_up = philo->last_meal + philo->sc->t_to_die;
-	ft_usleep(philo->sc->t_to_eat, sc);
+	philo->times_up = philo->sc->now + philo->sc->t_to_die;
+	ft_usleep(philo->sc->t_to_eat, philo->sc);
 	philo->meal++;
-	philo->iseating = 0;
-	pthread_mutex_unlock(&philo->mutex);
+	pthread_mutex_unlock(&philo->eat);
 
 }
 
 void	give_forks(t_philo *philo)
 {
-	t_suitcase	*sc;
-
-	sc = philo->sc;
 	pthread_mutex_unlock(&philo->sc->forks[philo->rfork]);
 	pthread_mutex_unlock(&philo->sc->forks[philo->lfork]);
-	print_message(philo, "has given forks\n");
 }
 
 void	sleep_then_think(t_philo *philo)
 {
-	t_suitcase	*sc;
-
-	sc = philo->sc;
 	print_message(philo, "is sleeping\n");
-	ft_usleep(philo->sc->t_to_sleep, sc);
+	ft_usleep(philo->sc->t_to_sleep, philo->sc);
 	print_message(philo, "is thinking\n");
 }

@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 16:19:35 by lucille           #+#    #+#             */
-/*   Updated: 2021/11/23 13:10:31 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/11/30 17:13:41 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	print_message(t_philo *philo, char *str)
 		return ;
 	}
 	ft_putnbr_fd(philo->sc->now - philo->sc->start, 1);
-	ft_putstr_fd(":\tphilo nb ", 1);
+	ft_putstr_fd(" ", 1);
 	ft_putnbr_fd(philo->who, 1);
 	ft_putstr_fd(" ", 1);
 	ft_putstr_fd(str, 1);

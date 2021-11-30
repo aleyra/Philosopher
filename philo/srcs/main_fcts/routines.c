@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 14:00:35 by lucille           #+#    #+#             */
-/*   Updated: 2021/11/23 13:08:42 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/11/30 17:12:40 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,8 +29,7 @@ static int	are_full(t_suitcase *sc)
 	}
 	if (is_full != sc->nb_philo)
 		return (0);
-	printf("All philosophers ate at least %d meal(s)\n",
-		philo->sc->nb_meal);
+	sc->endgame = 1;
 	return (1);
 }
 
@@ -40,10 +39,11 @@ static int	check_is_dead(t_suitcase *sc)
 	t_philo	*philo;
 
 	i = 0;
-	while (i > sc->nb_philo)
+	sc->now = ft_gettime(sc);
+	while (i < sc->nb_philo)
 	{
 		philo = &sc->philos[i];
-		if (philo->iseating == 0 && sc->now > philo->times_up)
+		if (sc->now > philo->times_up)
 		{
 			print_message(philo, "died\n");
 			sc->isdead = 1;
@@ -58,59 +58,47 @@ void	check_finished(t_suitcase *sc)
 {
 	int	i;
 
-	while (1)
+	while (sc->isdead == 0 && sc->endgame == 0)
 	{
 		sc->now = ft_gettime(sc);
 		i = 0;
 		while (i < sc->nb_philo)
 		{
 			pthread_mutex_lock(&sc->game_paused);
-			if (check_is_dead(sc) == 1
-				|| (sc->nb_meal > 0 && are_full(sc) == 1))
-			{
-				free_destroy_all(sc);
-				return ;
-			}
+			check_is_dead(sc);
+			if (sc->nb_meal > 0)
+				are_full(sc);
 			pthread_mutex_unlock(&sc->game_paused);
 			i++;
 		}
-		usleep (1000);
+		// usleep (100);
 	}
+	if (sc->endgame == 1)
+		printf("All philosophers ate at least %d meal(s)\n",
+			sc->nb_meal);
 }
 
-static void	*routine(void *void_philo)
+void	*routine(void *void_philo)
 {
 	t_philo		*philo;
 
 	philo = (t_philo *)void_philo;
-	philo->last_meal = philo->sc->now;
-	philo->times_up = philo->last_meal + philo->sc->t_to_die;
-	while (1)
+	while (philo->sc->ready != 1)
+	{
+		usleep(100);
+	}
+	philo->times_up = philo->sc->now + philo->sc->t_to_die;
+	if (philo->who % 2 == 0)
+		usleep(philo->sc->t_to_eat + 10);
+	while (philo->sc->isdead == 0
+		&& (philo->sc->nb_meal == -1 || philo->meal < philo->sc->nb_meal))
 	{
 		take_forks(philo);
+		if (philo->sc->nb_philo == 1)
+			ft_usleep(philo->sc->t_to_die + 10, philo->sc);
 		eat(philo);
 		give_forks(philo);
 		sleep_then_think(philo);
 	}
 	return (NULL);
-}
-
-int	start_meeting(t_suitcase *sc)
-{
-	int			thread_created;
-	pthread_t	new;
-	int			i;
-
-	sc->start = ft_gettime(sc);
-	i = 0;
-	while (i < sc->nb_philo)
-	{
-		thread_created = pthread_create(
-				&new, NULL, &routine, (void *)&sc->philos[i]);
-		if (thread_created != 0)
-			return (ERROR_PTHREAD_C);
-		usleep(100);
-		i++;
-	}
-	return (NO_ERROR);
 }
