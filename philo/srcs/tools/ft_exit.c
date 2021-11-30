@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: lucille <lucille@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 15:07:02 by lucille           #+#    #+#             */
-/*   Updated: 2021/11/30 15:45:58 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/11/30 20:49:47 by lucille          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,10 @@ static void	free_destroy_philos(t_suitcase *sc)
 	if (sc->philos != NULL)
 	{
 		i = 0;
-		while (i > sc->nb_philo)
+		while (i < sc->nb_philo)
 		{
 			pthread_mutex_destroy(&sc->philos[i].eat);
+			// pthread_detach(sc->philos[i].thread_id);
 			i++;
 		}
 		free (sc->philos);
@@ -31,8 +32,16 @@ static void	free_destroy_philos(t_suitcase *sc)
 
 void	free_destroy_all(t_suitcase *sc)
 {
-	int	i;
+	int		i;
+	// void	*join;
 
+	// i = 0;
+	// while (i < sc->nb_philo)
+	// {
+	// 	pthread_join(sc->philos[i].thread_id, &join);
+	// 	i++;
+	// }
+	// free(join);
 	free_destroy_philos(sc);
 	if (sc->forks != NULL)
 	{
