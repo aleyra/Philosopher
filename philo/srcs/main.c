@@ -6,14 +6,58 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 09:51:15 by lburnet           #+#    #+#             */
-/*   Updated: 2021/11/23 13:00:56 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/11/30 17:14:14 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-static int	init_suitcase0(t_suitcase **sc)
+static int	in_while(t_suitcase *sc, int i)
 {
+	int			thread_created;
+	pthread_t	new;
+
+	sc->philos[i].who = i + 1;
+	sc->philos[i].lfork = i;
+	sc->philos[i].rfork = (i + 1) % sc->nb_philo;
+	sc->philos[i].meal = 0;
+	sc->philos[i].sc = sc;
+	sc->philos[i].times_up = MY_LONG_MAX;
+	pthread_mutex_init(&sc->philos[i].eat, NULL);
+	pthread_mutex_init(&sc->forks[i], NULL);
+	thread_created = pthread_create(
+			&new, NULL, &routine, (void *)&sc->philos[i]);
+	return (thread_created);
+}
+
+static int	init_philos(t_suitcase *sc)
+{
+	int			i;
+
+	sc->philos = malloc(sc->nb_philo * sizeof(t_philo));
+	sc->forks = malloc(sc->nb_philo * sizeof(pthread_mutex_t));
+	if (sc->philos == NULL || sc->forks == NULL)
+		return (ERROR_MALLOC);
+	i = 0;
+	while (i < sc->nb_philo)
+	{
+		if (in_while(sc, i) != 0)
+			return (ERROR_PTHREAD_C);
+		i++;
+	}
+	pthread_mutex_init(&sc->game_paused, NULL);
+	pthread_mutex_init(&sc->write, NULL);
+	sc->isdead = 0;
+	sc->start = ft_gettime(sc);
+	sc->now = ft_gettime(sc);
+	sc->ready = 1;
+	return (NO_ERROR);
+}
+
+static int	initialize(t_suitcase **sc, int ac, char *av[])
+{
+	int	err;
+
 	*sc = malloc(sizeof(t_suitcase));
 	if (!sc)
 		return (ERROR_MALLOC);
@@ -24,53 +68,21 @@ static int	init_suitcase0(t_suitcase **sc)
 	(*sc)->t_to_sleep = -1;
 	(*sc)->forks = NULL;
 	(*sc)->philos = NULL;
-	(*sc)->gameover = 0;
+	(*sc)->endgame = 0;
 	(*sc)->now = 0;
-	return (NO_ERROR);
-}
-
-static int	init_suitcase1(t_suitcase *sc)
-{
-	int	i;
-
-	sc->forks = malloc(sc->nb_philo * sizeof(pthread_mutex_t));
-	if (sc->forks == NULL)
-		return (ERROR_MALLOC);
-	i = 0;
-	while (i < sc->nb_philo)
-	{
-		pthread_mutex_init(&sc->forks[i], NULL);
-		i++;
-	}
-	pthread_mutex_init(&sc->game_paused, NULL);
-	pthread_mutex_init(&sc->write, NULL);
-	sc->isdead = 0;
-	return (NO_ERROR);
-}
-
-static int	init_philos(t_suitcase *sc)
-{
-	int	i;
-	int	err;
-
-	sc->philos = malloc(sc->nb_philo * sizeof(t_philo));
-	if (sc->philos == NULL)
-		return (ERROR_MALLOC);
-	i = 0;
-	while (i < sc->nb_philo)
-	{
-		sc->philos[i].who = i + 1;
-		sc->philos[i].iseating = 0;
-		sc->philos[i].lfork = i;
-		sc->philos[i].rfork = (i + 1) % sc->nb_philo;
-		sc->philos[i].meal = 0;
-		sc->philos[i].sc = sc;
-		pthread_mutex_init(&sc->philos[i].mutex, NULL);
-		i++;
-	}
-	err = init_suitcase1(sc);
+	(*sc)->ready = 0;
+	err = ft_parsing(ac, av, *sc);
 	if (err != NO_ERROR)
 		return (err);
+	err = init_philos(*sc);
+	if (err != NO_ERROR)
+		return (err);
+	return (NO_ERROR);
+}
+
+int	main_loop(t_suitcase *sc)
+{
+	check_finished(sc);
 	return (NO_ERROR);
 }
 
@@ -83,17 +95,9 @@ int	main(int ac, char *av[])
 	err = NO_ERROR;
 	if (ac < 5 || ac > 6)
 		return (ft_exit(NULL, WRONG_NB_ARG));
-	if (init_suitcase0(&sc) == ERROR_MALLOC)
-		return (ft_exit(sc, ERROR_MALLOC));
-	err = ft_parsing(ac, av, sc);
+	err = initialize(&sc, ac, av);
 	if (err != NO_ERROR)
 		return (ft_exit(sc, err));
-	err = init_philos(sc);
-	if (err != NO_ERROR)
-		return (ft_exit(sc, err));
-	err = start_meeting(sc);
-	if (err != NO_ERROR)
-		return (ft_exit(sc, err));
-	check_finished(sc);
+	main_loop(sc);
 	return (ft_exit(sc, NO_ERROR));
 }

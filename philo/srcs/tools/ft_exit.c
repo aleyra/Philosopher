@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 15:07:02 by lucille           #+#    #+#             */
-/*   Updated: 2021/11/23 13:01:24 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/11/30 15:45:58 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	free_destroy_philos(t_suitcase *sc)
 		i = 0;
 		while (i > sc->nb_philo)
 		{
-			pthread_mutex_destroy(&sc->philos[i].mutex);
+			pthread_mutex_destroy(&sc->philos[i].eat);
 			i++;
 		}
 		free (sc->philos);

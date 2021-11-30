@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 09:51:25 by lburnet           #+#    #+#             */
-/*   Updated: 2021/11/23 13:07:28 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/11/30 16:30:42 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,22 +20,24 @@
 # include "stdlib.h"
 # include "sys/time.h"
 
+# define MY_INT_MIN -2147483648
+# define MY_INT_MAX 2147483647
+# define MY_LONG_MIN -9223372036854775808
+# define MY_LONG_MAX 9223372036854775807
+
 typedef struct s_suitcase	t_suitcase;
 typedef struct s_philo		t_philo;
 typedef enum e_error		t_error;
-typedef enum e_what			t_what;
 
 struct s_philo
 {
 	int					who;
-	int					iseating;
 	long				times_up;
-	long				last_meal;
 	int					lfork;
 	int					rfork;
 	int					meal;
 	t_suitcase			*sc;
-	pthread_mutex_t		mutex;
+	pthread_mutex_t		eat;
 };
 
 struct s_suitcase
@@ -46,6 +48,7 @@ struct s_suitcase
 	int					t_to_sleep;
 	int					nb_meal;
 	long				start;
+	int					ready;
 	long				now;
 	struct timeval		tv;
 	t_philo				*philos;
@@ -53,7 +56,7 @@ struct s_suitcase
 	pthread_mutex_t		game_paused;
 	pthread_mutex_t		write;
 	int					isdead;
-	int					gameover;
+	int					endgame;
 };
 
 enum e_error
@@ -67,20 +70,9 @@ enum e_error
 	FORBIDDEN,
 };
 
-enum e_what
-{
-	FORK_TAKEN,
-	IS_EATING,
-	IS_SLEEPING,
-	IS_THINKING,
-	IS_DIED,
-	FINISHED_SUCCESS
-};
-
 //fct in display
 void				error_message(int err);
 void				print_philos(t_suitcase *p);
-void				what_message(t_philo *philo, int what);
 void				print_message(t_philo *philo, char *str);
 
 //fct in mana_thread
@@ -89,7 +81,7 @@ void				eat(t_philo *philo);
 void				give_forks(t_philo *philo);
 void				sleep_then_think(t_philo *philo);
 void				check_finished(t_suitcase *sc);
-int					start_meeting(t_suitcase *sc);
+void				*routine(void *void_philo);
 
 //fct in parsing
 int					ft_parsing(int ac, char *av[], t_suitcase *p);
