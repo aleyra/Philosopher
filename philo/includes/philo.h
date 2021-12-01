@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   philo.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
+/*   By: lucille <lucille@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 09:51:25 by lburnet           #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2021/11/30 16:30:42 by lburnet          ###   ########lyon.fr   */
+=======
+/*   Updated: 2021/11/30 20:11:30 by lucille          ###   ########.fr       */
+>>>>>>> c7f22addb098499938fd6531071caaeaf67db52f
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +42,10 @@ struct s_philo
 	int					meal;
 	t_suitcase			*sc;
 	pthread_mutex_t		eat;
+<<<<<<< HEAD
+=======
+	pthread_t			thread_id;
+>>>>>>> c7f22addb098499938fd6531071caaeaf67db52f
 };
 
 struct s_suitcase
