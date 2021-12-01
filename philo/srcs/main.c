@@ -3,14 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: lucille <lucille@student.42.fr>            +#+  +:+       +#+        */
+/*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 09:51:15 by lburnet           #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2021/11/30 17:14:14 by lburnet          ###   ########lyon.fr   */
-=======
-/*   Updated: 2021/11/30 20:18:24 by lucille          ###   ########.fr       */
->>>>>>> c7f22addb098499938fd6531071caaeaf67db52f
+/*   Updated: 2021/12/01 11:28:19 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,10 +15,6 @@
 static int	in_while(t_suitcase *sc, int i)
 {
 	int			thread_created;
-<<<<<<< HEAD
-	pthread_t	new;
-=======
->>>>>>> c7f22addb098499938fd6531071caaeaf67db52f
 
 	sc->philos[i].who = i + 1;
 	sc->philos[i].lfork = i;
@@ -33,12 +25,8 @@ static int	in_while(t_suitcase *sc, int i)
 	pthread_mutex_init(&sc->philos[i].eat, NULL);
 	pthread_mutex_init(&sc->forks[i], NULL);
 	thread_created = pthread_create(
-<<<<<<< HEAD
-			&new, NULL, &routine, (void *)&sc->philos[i]);
-=======
 			&sc->philos[i].thread_id, NULL, &routine, (void *)&sc->philos[i]);
 	pthread_detach(sc->philos[i].thread_id);
->>>>>>> c7f22addb098499938fd6531071caaeaf67db52f
 	return (thread_created);
 }
 
