@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/16 15:07:02 by lucille           #+#    #+#             */
-/*   Updated: 2021/12/01 12:45:56 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/12/01 13:04:00 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,6 +49,13 @@ void	free_destroy_all(t_suitcase *sc)
 
 int	ft_exit(t_suitcase *sc, int err)
 {
+	if (err == NO_ERROR && sc->endgame == 1)
+	{
+		pthread_mutex_lock(&sc->philos[0].sc->write);
+		printf("All philosophers ate at least %d meal(s)\n",
+			sc->nb_meal);
+		pthread_mutex_unlock(&sc->philos[0].sc->write);
+	}
 	if (err != NO_ERROR)
 		error_message(err);
 	free_destroy_all(sc);
