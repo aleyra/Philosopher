@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 14:00:35 by lucille           #+#    #+#             */
-/*   Updated: 2021/11/30 17:12:40 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/12/01 12:47:07 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ void	check_finished(t_suitcase *sc)
 			pthread_mutex_unlock(&sc->game_paused);
 			i++;
 		}
-		// usleep (100);
 	}
 	if (sc->endgame == 1)
 		printf("All philosophers ate at least %d meal(s)\n",

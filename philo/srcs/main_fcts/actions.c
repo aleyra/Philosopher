@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/19 15:06:47 by lucille           #+#    #+#             */
-/*   Updated: 2021/11/30 17:05:14 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/12/01 12:46:55 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,11 +16,8 @@ void	take_forks(t_philo *philo)
 {
 	pthread_mutex_lock(&philo->sc->forks[philo->rfork]);
 	print_message(philo, "has taken a fork\n");
-	// if (philo->rfork != philo->lfork)
-	// {
-		pthread_mutex_lock(&philo->sc->forks[philo->lfork]);
-		print_message(philo, "has taken a fork\n");
-	// }
+	pthread_mutex_lock(&philo->sc->forks[philo->lfork]);
+	print_message(philo, "has taken a fork\n");
 }
 
 void	eat(t_philo *philo)
@@ -31,7 +28,6 @@ void	eat(t_philo *philo)
 	ft_usleep(philo->sc->t_to_eat, philo->sc);
 	philo->meal++;
 	pthread_mutex_unlock(&philo->eat);
-
 }
 
 void	give_forks(t_philo *philo)

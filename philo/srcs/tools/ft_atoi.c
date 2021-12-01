@@ -6,7 +6,7 @@
 /*   By: lburnet <lburnet@student.42lyon.fr>        +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/09 10:38:29 by lburnet           #+#    #+#             */
-/*   Updated: 2021/11/30 14:37:59 by lburnet          ###   ########lyon.fr   */
+/*   Updated: 2021/12/01 12:47:18 by lburnet          ###   ########lyon.fr   */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,6 @@ int	ft_atoi(const char *str)
 	int			sign;
 	long int	atoi;
 
-	// printf("str = %s\n", str);//
 	i = 0;
 	if (str[i] == 0)
 		return (0);
@@ -52,6 +51,5 @@ int	ft_atoi(const char *str)
 		i++;
 	}
 	atoi *= sign;
-	// printf("atoi = %ld\n", atoi);//
 	return ((int)atoi);
 }

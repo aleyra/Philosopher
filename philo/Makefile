@@ -8,11 +8,6 @@ PATH_SRC	=	srcs
 PATH_OBJ	=	objs
 PATH_LOG	=	philo/logs
 
-# Libraries
-
-#override LIBFT_DIR	:= Libft
-#override LIBFT		:= libft.a
-
 # List of sources
 SRCS_DISP	=	error_message.c print0.c what_message.c
 SRCS_MANA_T	= 	actions.c routines.c
@@ -49,12 +44,10 @@ all:	init $(NAME)
 
 init:
 	 $(shell mkdir -p $(PATH_OBJ))
-#	 $(MAKE) -C $(LIBFT_DIR)
-#	ln -sf $(LIBFT_DIR)/$(LIBFT)
 
 bonus :	all
 
-$(NAME): 	$(OBJS) $(LIBFT)
+$(NAME): 	$(OBJS)
 			$(CC) $(CFLAGS) $(OBJS) -o $(NAME) -pthread -lpthread
 
 $(PATH_OBJ)/%.o : $(PATH_SRC)/*/%.c  $(INCS)
@@ -68,11 +61,8 @@ $(PATH_OBJ)/%.o : $(PATH_SRC)/%.c  $(INCS)
 clean:
 	@ $(RM) -rf $(PATH_OBJ)
 	echo "$(_INFO) Deleted files and directory"
-#	@ $(MAKE) -C $(LIBFT_DIR) clean
 
 fclean: clean
 	@ $(RM) -rf $(NAME)
-#	@ $(RM) $(LIBFT)
-#	 $(MAKE) -C $(LIBFT_DIR) fclean
 
 re: fclean all
